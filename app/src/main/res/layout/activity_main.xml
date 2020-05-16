@@ -75,8 +75,8 @@
         android:layout_marginEnd="@dimen/standard_margin"
         android:layout_marginBottom="@dimen/standard_margin"
         android:text="@string/shower"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/scaleButton"
+        app:layout_constraintEnd_toStartOf="@id/multiShowerButton"
+        app:layout_constraintStart_toEndOf="@id/colorizeButton"
         app:layout_constraintTop_toBottomOf="@+id/rotateButton" />
 
     <Button
@@ -84,10 +84,26 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/standard_margin"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="@dimen/standard_margin"
         android:text="Background Color"
-        app:layout_constraintEnd_toEndOf="@+id/translateButton"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toStartOf="@id/showerButton"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rotateButton" />
+
+    <Button
+        android:id="@+id/multiShowerButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/standard_margin"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="@dimen/standard_margin"
+        android:padding="10dp"
+        android:text="Multiple Shower"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/showerButton"
         app:layout_constraintTop_toBottomOf="@+id/rotateButton" />
 
     <FrameLayout

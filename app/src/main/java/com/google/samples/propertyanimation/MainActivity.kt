@@ -18,8 +18,8 @@ package com.google.samples.propertyanimation
 
 import android.animation.*
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
@@ -27,6 +27,7 @@ import android.view.animation.LinearInterpolator
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
 
 
@@ -39,6 +40,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var fadeButton: Button
     lateinit var colorizeButton: Button
     lateinit var showerButton: Button
+    lateinit var multishowerButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +53,7 @@ class MainActivity : AppCompatActivity() {
         fadeButton = findViewById<Button>(R.id.fadeButton)
         colorizeButton = findViewById<Button>(R.id.colorizeButton)
         showerButton = findViewById<Button>(R.id.showerButton)
+        multishowerButton = findViewById<Button>(R.id.multiShowerButton)
 
         rotateButton.setOnClickListener {
             rotater()
@@ -75,6 +78,10 @@ class MainActivity : AppCompatActivity() {
         showerButton.setOnClickListener {
             shower()
         }
+        multishowerButton.setOnClickListener {
+            multipleStarsShower()
+        }
+
     }
 
     private fun rotater() {
@@ -167,6 +174,23 @@ class MainActivity : AppCompatActivity() {
         })
 
         set.start()
+
+    }
+
+    private fun multipleStarsShower() {
+        var count = 4
+        var runnable: Runnable? = null
+        val handler = Handler()
+        if (runnable == null) {
+            runnable = Runnable {
+                if (count > 0) {
+                    count--
+                    shower()
+                    handler.post(runnable)
+                }
+            }
+        }
+        handler.post(runnable)
     }
 }
 
