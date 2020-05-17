@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var colorizeButton: Button
     lateinit var showerButton: Button
     lateinit var multishowerButton: Button
+    lateinit var rainbowShowerButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +55,7 @@ class MainActivity : AppCompatActivity() {
         colorizeButton = findViewById<Button>(R.id.colorizeButton)
         showerButton = findViewById<Button>(R.id.showerButton)
         multishowerButton = findViewById<Button>(R.id.multiShowerButton)
+        rainbowShowerButton = findViewById<Button>(R.id.rainbowShowerButton)
 
         rotateButton.setOnClickListener {
             rotater()
@@ -78,8 +80,13 @@ class MainActivity : AppCompatActivity() {
         showerButton.setOnClickListener {
             shower()
         }
+
         multishowerButton.setOnClickListener {
             multipleStarsShower()
+        }
+
+        rainbowShowerButton.setOnClickListener {
+            rainbowShower()
         }
 
     }
@@ -134,7 +141,7 @@ class MainActivity : AppCompatActivity() {
         animator.start()
     }
 
-    private fun shower(colorCode: String? = "#FFFF00") {
+    private fun shower(colorCode: String? = "#FFFF00", rainbowStar: Boolean? = false) {
 
         val container = star.parent as ViewGroup
         val containerW = container.width
@@ -163,8 +170,29 @@ class MainActivity : AppCompatActivity() {
         val rotator = ObjectAnimator.ofFloat(newStar, View.ROTATION, Math.random().toFloat() * 1080)
         rotator.interpolator = LinearInterpolator()
 
+        val calevl = ArgbEvaluator()
+        val color = ObjectAnimator.ofObject(
+            newStar,
+            "colorFilter",
+            calevl,
+            Color.parseColor("#FF0000"),
+            Color.parseColor("#FF7F00"),
+            Color.parseColor("#FFFF00"),
+            Color.parseColor("#00FF00"),
+            Color.parseColor("#0000FF"),
+            Color.parseColor("#4B0082"),
+            Color.parseColor("#9400D3")
+
+        )
+
+
         val set = AnimatorSet()
-        set.playTogether(mover, rotator)
+        if (rainbowStar == true) {
+            set.playTogether(mover, rotator, color)
+        } else {
+            set.playTogether(mover, rotator)
+        }
+
         set.duration = (Math.random() * 1500 + 500).toLong()
 
         set.addListener(object : AnimatorListenerAdapter() {
@@ -200,6 +228,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
         handler.post(runnable)
+    }
+
+    fun rainbowShower(){
+        shower(rainbowStar = true)
     }
 }
 

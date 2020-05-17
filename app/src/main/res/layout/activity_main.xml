@@ -75,6 +75,7 @@
         android:layout_marginEnd="@dimen/standard_margin"
         android:layout_marginBottom="@dimen/standard_margin"
         android:text="@string/shower"
+        android:textSize="10sp"
         app:layout_constraintEnd_toStartOf="@id/multiShowerButton"
         app:layout_constraintStart_toEndOf="@id/colorizeButton"
         app:layout_constraintTop_toBottomOf="@+id/rotateButton" />
@@ -102,9 +103,24 @@
         android:padding="10dp"
         android:text="Multiple Shower"
         android:textSize="10sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/rainbowShowerButton"
         app:layout_constraintStart_toEndOf="@id/showerButton"
         app:layout_constraintTop_toBottomOf="@+id/rotateButton" />
+
+    <Button
+        android:id="@+id/rainbowShowerButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/standard_margin"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="@dimen/standard_margin"
+        android:padding="10dp"
+        android:text="Rainbow Shower"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/multiShowerButton"
+        app:layout_constraintTop_toBottomOf="@+id/rotateButton" />
+
 
     <FrameLayout
         android:layout_width="match_parent"
