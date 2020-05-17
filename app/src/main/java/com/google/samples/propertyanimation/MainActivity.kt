@@ -134,7 +134,7 @@ class MainActivity : AppCompatActivity() {
         animator.start()
     }
 
-    private fun shower() {
+    private fun shower(colorCode: String? = "#FFFF00") {
 
         val container = star.parent as ViewGroup
         val containerW = container.width
@@ -149,7 +149,7 @@ class MainActivity : AppCompatActivity() {
             FrameLayout.LayoutParams.WRAP_CONTENT
         )
         container.addView(newStar)
-
+        newStar.setColorFilter(Color.parseColor(colorCode))
         newStar.scaleX = Math.random().toFloat() * 1.5f + .1f
         newStar.scaleY = newStar.scaleX
         starW *= newStar.scaleX
@@ -178,14 +178,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun multipleStarsShower() {
-        var count = 4
+        val colors = listOf<String>(
+            "#FF0000",
+            "#FF7F00",
+            "#FFFF00",
+            "#00FF00",
+            "#0000FF",
+            "#4B0082",
+            "#9400D3"
+        )
+        var count = 7
         var runnable: Runnable? = null
         val handler = Handler()
         if (runnable == null) {
             runnable = Runnable {
                 if (count > 0) {
                     count--
-                    shower()
+                    shower(colors.get(6 - count))
                     handler.post(runnable)
                 }
             }
