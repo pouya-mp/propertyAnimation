@@ -206,7 +206,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun multipleStarsShower() {
-        val colors = listOf<String>(
+        val colors = listOf(
             "#FF0000",
             "#FF7F00",
             "#FFFF00",
@@ -215,19 +215,12 @@ class MainActivity : AppCompatActivity() {
             "#4B0082",
             "#9400D3"
         )
-        var count = 7
-        var runnable: Runnable? = null
-        val handler = Handler()
-        if (runnable == null) {
-            runnable = Runnable {
-                if (count > 0) {
-                    count--
-                    shower(colors.get(6 - count))
-                    handler.post(runnable)
-                }
+
+        for (i in 0 until 7) {
+            runOnUiThread {
+                shower(colors.shuffled().first())
             }
         }
-        handler.post(runnable)
     }
 
     fun rainbowShower(){
