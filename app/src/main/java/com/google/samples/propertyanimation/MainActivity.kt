@@ -19,7 +19,6 @@ package com.google.samples.propertyanimation
 import android.animation.*
 import android.graphics.Color
 import android.os.Bundle
-import android.os.Handler
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
@@ -141,7 +140,10 @@ class MainActivity : AppCompatActivity() {
         animator.start()
     }
 
-    private fun shower(colorCode: String? = "#FFFF00", rainbowStar: Boolean? = false) {
+    private fun shower(
+        colorCode: String? = resources.getStringArray(R.array.rainbow_colors)[2],
+        rainbowStar: Boolean? = false
+    ) {
 
         val container = star.parent as ViewGroup
         val containerW = container.width
@@ -171,24 +173,22 @@ class MainActivity : AppCompatActivity() {
         rotator.interpolator = LinearInterpolator()
 
         val calevl = ArgbEvaluator()
-        val color = ObjectAnimator.ofObject(
-            newStar,
-            "colorFilter",
-            calevl,
-            Color.parseColor("#FF0000"),
-            Color.parseColor("#FF7F00"),
-            Color.parseColor("#FFFF00"),
-            Color.parseColor("#00FF00"),
-            Color.parseColor("#0000FF"),
-            Color.parseColor("#4B0082"),
-            Color.parseColor("#9400D3")
 
+        val rainbowColors = ObjectAnimator.ofObject(
+            newStar, "colorFilter", calevl,
+            Color.parseColor(resources.getStringArray(R.array.rainbow_colors)[0]),
+            Color.parseColor(resources.getStringArray(R.array.rainbow_colors)[1]),
+            Color.parseColor(resources.getStringArray(R.array.rainbow_colors)[2]),
+            Color.parseColor(resources.getStringArray(R.array.rainbow_colors)[3]),
+            Color.parseColor(resources.getStringArray(R.array.rainbow_colors)[4]),
+            Color.parseColor(resources.getStringArray(R.array.rainbow_colors)[5]),
+            Color.parseColor(resources.getStringArray(R.array.rainbow_colors)[6])
         )
 
 
         val set = AnimatorSet()
         if (rainbowStar == true) {
-            set.playTogether(mover, rotator, color)
+            set.playTogether(mover, rotator, rainbowColors)
         } else {
             set.playTogether(mover, rotator)
         }
@@ -206,24 +206,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun multipleStarsShower() {
-        val colors = listOf(
-            "#FF0000",
-            "#FF7F00",
-            "#FFFF00",
-            "#00FF00",
-            "#0000FF",
-            "#4B0082",
-            "#9400D3"
-        )
 
         for (i in 0 until 7) {
             runOnUiThread {
-                shower(colors.shuffled().first())
+                shower(resources.getStringArray(R.array.rainbow_colors).random())
             }
         }
     }
 
-    fun rainbowShower(){
+    private fun rainbowShower() {
         shower(rainbowStar = true)
     }
 }

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="rainbow_colors">
+        <item name = "Red">"#FF0000"</item>
+        <item name = "Orange">"#FF7F00"</item>
+        <item name = "Yellow">"#FFFF00"</item>
+        <item name = "Green">"#00FF00"</item>
+        <item name = "Blue">"#0000FF"</item>
+        <item name = "Indigo">"#4B0082"</item>
+        <item name = "Violet">"#9400D3"</item>
+            </array>
+</resources>
