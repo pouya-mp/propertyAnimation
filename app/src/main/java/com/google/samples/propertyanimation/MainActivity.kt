@@ -47,14 +47,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         star = findViewById(R.id.star)
-        rotateButton = findViewById<Button>(R.id.rotateButton)
-        translateButton = findViewById<Button>(R.id.translateButton)
-        scaleButton = findViewById<Button>(R.id.scaleButton)
-        fadeButton = findViewById<Button>(R.id.fadeButton)
-        colorizeButton = findViewById<Button>(R.id.colorizeButton)
-        showerButton = findViewById<Button>(R.id.showerButton)
-        multishowerButton = findViewById<Button>(R.id.multiShowerButton)
-        rainbowShowerButton = findViewById<Button>(R.id.rainbowShowerButton)
+        rotateButton = findViewById(R.id.rotateButton)
+        translateButton = findViewById(R.id.translateButton)
+        scaleButton = findViewById(R.id.scaleButton)
+        fadeButton = findViewById(R.id.fadeButton)
+        colorizeButton = findViewById(R.id.colorizeButton)
+        showerButton = findViewById(R.id.showerButton)
+        multishowerButton = findViewById(R.id.multiShowerButton)
+        rainbowShowerButton = findViewById(R.id.rainbowShowerButton)
 
         rotateButton.setOnClickListener {
             rotater()
@@ -174,17 +174,14 @@ class MainActivity : AppCompatActivity() {
 
         val calevl = ArgbEvaluator()
 
-        val rainbowColors = ObjectAnimator.ofObject(
-            newStar, "colorFilter", calevl,
-            Color.parseColor(resources.getStringArray(R.array.rainbow_colors)[0]),
-            Color.parseColor(resources.getStringArray(R.array.rainbow_colors)[1]),
-            Color.parseColor(resources.getStringArray(R.array.rainbow_colors)[2]),
-            Color.parseColor(resources.getStringArray(R.array.rainbow_colors)[3]),
-            Color.parseColor(resources.getStringArray(R.array.rainbow_colors)[4]),
-            Color.parseColor(resources.getStringArray(R.array.rainbow_colors)[5]),
-            Color.parseColor(resources.getStringArray(R.array.rainbow_colors)[6])
-        )
+        val colorsStringArray = resources.getStringArray(R.array.rainbow_colors)
+        val colorsList = colorsStringArray.map {
+            Color.parseColor(it)
+        }.toTypedArray()
 
+        val rainbowColors = ObjectAnimator.ofObject(
+            newStar, "colorFilter", calevl, *colorsList
+        )
 
         val set = AnimatorSet()
         if (rainbowStar == true) {
@@ -206,10 +203,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun multipleStarsShower() {
-
+        val array = resources.getStringArray(R.array.rainbow_colors)
         for (i in 0 until 7) {
             runOnUiThread {
-                shower(resources.getStringArray(R.array.rainbow_colors).random())
+                shower(array.random())
             }
         }
     }
